@@ -1,0 +1,13 @@
+{
+  "name": "simple-query-selector",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "author": "deverlines",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deverlines/simple-query-selector.git"
+  },
+  "homepage": "https://github.com/deverlines/simple-query-selector#readme"
+}
