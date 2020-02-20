@@ -1,28 +1,30 @@
-qs('selector') - document.querySelector('selector')   
-qsa('selector') - document.querySelectorAll('selector')
+Methods
+
+    qs('selector')  - document.querySelector('selector')
+    qsa('selector') - document.querySelectorAll('selector')
     
-Element.qs('selector') - Element.querySelector('selector')
-Element.qsa('selector') - Element.querySelectorAll('selector')
+    Element.qs('selector')  - Element.querySelector('selector')
+    Element.qsa('selector') - Element.querySelectorAll('selector')
 
 
-Element.ael(event, callback) - Element.addEventListener(event, callback)
-NodeList.ael(event, callback(e, element)) - addEventListener for Elements of NodeList
+    Element.ael(event, callback)    - Element.addEventListener(event, callback)
+    NodeList.ael(event, callback(e, element))   - addEventListener for Elements of NodeList
 
 
-NodeList.each(callback(element, key)) - NodeList.forEach
+    NodeList.each(callback(element, key))   - NodeList.forEach
 
 
-Element.attr('attr-name') - Element.getAttribute('attr-name')
-Element.attr('attr-name', 'value'); - Element.setAttribute('attr-name', 'value');
-Element.attr('attr-name', null); - Element.removeAttribute('attr-name');
-Element.toggleAttr('attr-name', 'value'); - remove or add attribute
-Element.toggleAttr('attr-name', 'value1', 'value2'); - toggle attribute value (value1 or value2)
+    Element.attr('attr-name')       - Element.getAttribute('attr-name')
+    Element.attr('attr-name', 'value')      - Element.setAttribute('attr-name', 'value');
+    Element.attr('attr-name', null)     - Element.removeAttribute('attr-name');
+    Element.toggleAttr('attr-name', 'value')        - remove or add attribute
+    Element.toggleAttr('attr-name', 'value1', 'value2')     - toggle attribute value (value1 or value2)
 
-Element.addClass('class') - Element.classList.add('class');
-Element.removeClass('class') - Element.classList.remove('class');
-Element.hasClass('class') - Element.classList.contains('class');
-Element.toggleClass('class') - remove or add class
-Element.toggleClass('class1', 'class2'); - toggle class (value1 or value2)
+    Element.addClass('class')       - Element.classList.add('class');
+    Element.removeClass('class')        - Element.classList.remove('class');
+    Element.hasClass('class')       - Element.classList.contains('class');
+    Element.toggleClass('class')        - remove or add class
+    Element.toggleClass('class1', 'class2')     - toggle class (value1 or value2)
 
 
 Example
