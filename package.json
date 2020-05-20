@@ -1,7 +1,7 @@
 {
   "name": "simple-query-selector",
-  "version": "0.0.3",
-  "description": "",
+  "version": "0.0.7",
+  "description": "Simplification of work with Element and NodeList",
   "main": "index.js",
   "author": "deverlines",
   "license": "ISC",
@@ -9,5 +9,8 @@
     "type": "git",
     "url": "git+https://github.com/deverlines/simple-query-selector.git"
   },
-  "homepage": "https://github.com/deverlines/simple-query-selector#readme"
+  "homepage": "https://github.com/deverlines/simple-query-selector#readme",
+  "keywords": [
+    "selector"
+  ]
 }
