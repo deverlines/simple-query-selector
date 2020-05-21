@@ -1,4 +1,6 @@
-const events = {
+"use strict";
+
+var events = {
   'abort': 'abort',
   'animationcancel': 'animationcancel',
   'animationend': 'animationend',
@@ -85,9 +87,8 @@ const events = {
   'transitionstart': 'transitionstart',
   'volumechange': 'volumechange',
   'waiting': 'waiting',
-  'wheel': 'wheel',
+  'wheel': 'wheel'
 };
-
 /**
  * typedef {{string: events}} elementEvent
  * @typedef {string} elementEvent
@@ -120,81 +121,83 @@ const events = {
  * @param {eachCallback} callback
  * @returns {Object}
  */
-Object.prototype.each = function (callback) {
 
-  let i = 0,
+Object.prototype.each = function (callback) {
+  var i = 0,
     length = this.length;
 
   for (i; i < length; i++) {
-
-    let element = this[i];
+    var element = this[i];
 
     if (callback(element, i) === true) {
       break;
     }
-
   }
 
   return this;
-
 };
-
 /**
  *
  * @param {string} selector
  * @returns HTMLElementTagNameMap[*]
  */
+
+
 window.qs = function (selector) {
   return document.querySelector(selector);
 };
-
 /**
  *
  * @param {string} selector
  * @returns {NodeListOf<HTMLElementTagNameMap[*]>}
  */
+
+
 window.qsa = function (selector) {
   return document.querySelectorAll(selector);
 };
-
 /**
  *
  * @param {GlobalEventHandlersEventMap.} event
  * @param {aelCallback} callback
  */
-window.ael = function(event, callback) {
-  document.addEventListener(event, callback);
-}
 
+
+window.ael = function (event, callback) {
+  document.addEventListener(event, callback);
+};
 /**
  *
  * @param {string} selector
  * @returns HTMLElementTagNameMap[*]
  */
+
+
 Element.prototype.qs = function (selector) {
   return this.querySelector(selector);
 };
-
 /**
  *
  * @param {string} selector
  * @returns {NodeListOf<HTMLElementTagNameMap[*]>}
  */
+
+
 Element.prototype.qsa = function (selector) {
   return this.querySelectorAll(selector);
 };
-
 /**
  *
  * @param {elementEvent} event
  * @param {elementAelCallback} callback
  * @returns HTMLElementTagNameMap[*]
  */
+
+
 Element.prototype.ael = function (event, callback) {
   this.addEventListener(event, callback);
   return this;
 };
-
 /**
  *
  * @callback nodeListAelCallback
@@ -210,26 +213,26 @@ Element.prototype.ael = function (event, callback) {
  * @returns NodeList
  */
 
+
 NodeList.prototype.ael = function (event, callback) {
-
-  this.each((element, i) => {
-    element.ael(event, (event) => callback(event, element, i))
+  this.each(function (element, i) {
+    element.ael(event, function (event) {
+      return callback(event, element, i);
+    });
   });
-
   return this;
-
 };
-
 /**
  *
  * @param {string} name
  * @param {string|null} value
  * @returns {string|<HTMLElementTagNameMap[*]>|null}
  */
-Element.prototype.attr = function (name, value = undefined) {
 
-  if (value === undefined)
-    return this.getAttribute(name) === undefined ? null : this.getAttribute(name);
+
+Element.prototype.attr = function (name) {
+  var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
+  if (value === undefined) return this.getAttribute(name) === undefined ? null : this.getAttribute(name);
 
   if (value === null) {
     this.removeAttribute(name);
@@ -238,18 +241,17 @@ Element.prototype.attr = function (name, value = undefined) {
 
   this.setAttribute(name, value);
   return this;
-
 };
-
 /**
  *
  * @param {string} name
  * @returns {boolean}
  */
+
+
 Element.prototype.hasAttr = function (name) {
   return this.hasAttribute(name);
 };
-
 /**
  *
  * @param {string} name
@@ -257,10 +259,13 @@ Element.prototype.hasAttr = function (name) {
  * @param {string} value2
  * @returns {string|null}
  */
-Element.prototype.toggleAttr = function (name, value = null, value2 = undefined) {
+
+
+Element.prototype.toggleAttr = function (name) {
+  var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  var value2 = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
 
   if (value2 === undefined) {
-
     if (this.hasAttr(name)) {
       this.attr(name, null);
       return this;
@@ -273,7 +278,6 @@ Element.prototype.toggleAttr = function (name, value = null, value2 = undefined)
 
     this.attr(name, value);
     return this;
-
   }
 
   if (!this.hasAttr(name)) {
@@ -288,49 +292,52 @@ Element.prototype.toggleAttr = function (name, value = null, value2 = undefined)
 
   this.attr(name, value);
   return this;
-
 };
-
 /**
  *
  * @param {string} value
  * @returns HTMLElementTagNameMap[*]
  */
+
+
 Element.prototype.addClass = function (value) {
   this.classList.add(value);
   return this;
 };
-
 /**
  *
  * @param {string} value
  * @returns HTMLElementTagNameMap[*]
  */
+
+
 Element.prototype.removeClass = function (value) {
   this.classList.remove(value);
   return this;
 };
-
 /**
  *
  * @param {string} value
  * @returns HTMLElementTagNameMap[*]
  */
+
+
 Element.prototype.hasClass = function (value) {
   this.classList.contains(value);
   return this;
 };
-
 /**
  *
  * @param {string} value
  * @param {string} value2
  * @returns HTMLElementTagNameMap[*]
  */
-Element.prototype.toggleClass = function (value, value2 = undefined) {
+
+
+Element.prototype.toggleClass = function (value) {
+  var value2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
 
   if (value2 === undefined) {
-
     if (this.classList.contains(value)) {
       this.classList.remove(value);
       return this;
@@ -338,7 +345,6 @@ Element.prototype.toggleClass = function (value, value2 = undefined) {
 
     this.classList.add(value);
     return this;
-
   }
 
   if (this.classList.contains(value)) {
@@ -350,5 +356,4 @@ Element.prototype.toggleClass = function (value, value2 = undefined) {
   this.classList.remove(value2);
   this.classList.add(value);
   return this;
-
 };
