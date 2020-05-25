@@ -106,6 +106,13 @@ const events = {
  */
 
 /**
+ * @callback eachObjectCallback
+ * @param value
+ * @param key
+ */
+
+
+/**
  *
  * @callback elementAelCallback
  * @param {Event} event
@@ -120,7 +127,7 @@ const events = {
  * @param {eachCallback} callback
  * @returns {Object}
  */
-Object.prototype.each = function (callback) {
+NodeList.prototype.each = function (callback) {
 
   let i = 0,
     length = this.length;
@@ -138,6 +145,30 @@ Object.prototype.each = function (callback) {
   return this;
 
 };
+
+/**
+ *
+ * @param {Object} object
+ * @param {eachObjectCallback} callback
+ */
+window.each = function(object, callback) {
+
+  let key, value;
+
+  for (key in object) {
+
+    if (!object.hasOwnProperty(key))
+      continue;
+
+    value = object[key];
+
+    if (callback(value, key) === true) {
+      break;
+    }
+
+  }
+
+}
 
 /**
  *
