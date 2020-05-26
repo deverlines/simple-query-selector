@@ -13,84 +13,75 @@
     <div class="example-1_item">1</div>
 </div>
 <hr>
-<div class="example-2">
+<div class="example-2 multiple-2">
     <div class="example-2_item">2</div>
     <div class="example-2_item">2</div>
 </div>
-<div class="example-2">
+<div class="example-2 multiple-2">
     <div class="example-2_item">2</div>
     <div class="example-2_item">2</div>
 </div>
-<div class="example-2">
+<div class="example-2 multiple-2">
     <div class="example-2_item">2</div>
     <div class="example-2_item">2</div>
 </div>
-<div class="example-2">
+<div class="example-2 multiple-2">
     <div class="example-2_item">2</div>
     <div class="example-2_item">2</div>
 </div>
 <hr>
 <div class="example-3">3</div>
 
-<script src="./index.js"></script>
+<script src="./index.es5.js"></script>
 
 <script>
 
-  let example1 = qs('.example-1');
-  let example1Item = example1.qs('.example-1_item');
+  var data = {
+    k1: '1',
+    k2: '2'
+  };
 
-  let attrAction = (element => {
+  each(data, function (value, key) {});
 
-    if (element.attr('name-attr-1'))      // Element.getAttribute
-      element.attr('name-attr-1', null);    // Element.removeAttribute
-    else
-      element.attr('name-attr-1', 'value');       // Element.setAttribute
+  var el1 = qs('.example-1');
 
-    element.toggleAttr('name-attr-2', 'value');  // remove or add attribute
-    element.toggleAttr('name-attr-3', 'value1', 'value2');  // toggle attribute value (value1 or value2)
+  el1.ael('click', function (e) {
+    el1.attr('attr-1', 'true').attr('attr-2', 'true');
+    // <div class="example-1" attr-1="true" attr-2="true">
 
-    // odd  click <div class="example-1_item" name-attr-1="value" name-attr-2="value" name-attr-3="value1">1</div>
-    // even click <div class="example-1_item" name-attr-3="value2">1</div>
+    el1.attr('attr-1');
+    // true
 
-  });
+    el1.toggleAttr('attr-4');
+    // <div class="example-1" attr-4="attr-4">
+    // <div class="example-1">
 
-  example1Item.ael('click', e => { // Element.addEventListener
-    e.preventDefault();
-    attrAction(example1Item);
-  });
+    el1.toggleAttr('attr-5', 'one');
+    // <div class="example-1" attr-5="one">
+    // <div class="example-1">
 
-  //
+    el1.toggleAttr('attr-6', 'one', 'two');
+    // <div class="example-1" attr-5="one">
+    // <div class="example-1" attr-5="two">
 
-  let example2 = qsa('.example-2');
+    el1.addClass('one').addClass('two').removeClass('three').toggleClass('f', 's');
+    // example-1 one two f
+    // example-1 one two s
 
-  example2.each((element, key) => {
-
-    if (key === 4)
-      return false;
-
-    let example2Items = element.qsa('.example-2_item');
-
-    example2Items.ael('click', (e, item) => {
-      attrAction(item);
-    });
+    var child = el1.qs('.example-1_item');
 
   });
 
-  //
+  var elements = qsa('.example-2');
 
-  let example3 = qs('.example-3');
+  elements.each(function (element, i) {
+    var childs = element.qsa('.example-2_item');
+  });
 
-  example3.ael('click', () => {
-
-    if (example3.hasClass('black'))
-        example3.removeClass('black');
-    else
-      example3.addClass('black');
-
-    example3.toggleClass('blue'); // remove or add class
-
-    example3.toggleClass('green', 'yellow');   // toggle class (value1 or value2)
-
+  elements.ael('click', function (event, element, i) {
+    elements.addClass('multiple');
+    elements.removeClass('multiple-2');
+    elements.attr('attr-1', 'value');
   });
 
 </script>
