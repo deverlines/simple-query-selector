@@ -13,28 +13,76 @@
     <div class="example-1_item">1</div>
 </div>
 <hr>
-<div class="example-2">
+<div class="example-2 multiple-2">
     <div class="example-2_item">2</div>
     <div class="example-2_item">2</div>
 </div>
-<div class="example-2">
+<div class="example-2 multiple-2">
     <div class="example-2_item">2</div>
     <div class="example-2_item">2</div>
 </div>
-<div class="example-2">
+<div class="example-2 multiple-2">
     <div class="example-2_item">2</div>
     <div class="example-2_item">2</div>
 </div>
-<div class="example-2">
+<div class="example-2 multiple-2">
     <div class="example-2_item">2</div>
     <div class="example-2_item">2</div>
 </div>
 <hr>
 <div class="example-3">3</div>
 
-<script src="./index.js"></script>
+<script src="./index.es5.js"></script>
 
 <script>
+
+  var data = {
+    k1: '1',
+    k2: '2'
+  };
+
+  each(data, function (value, key) {});
+
+  var el1 = qs('.example-1');
+
+  el1.ael('click', function (e) {
+    el1.attr('attr-1', 'true').attr('attr-2', 'true');
+    // <div class="example-1" attr-1="true" attr-2="true">
+
+    el1.attr('attr-1');
+    // true
+
+    el1.toggleAttr('attr-4');
+    // <div class="example-1" attr-4="attr-4">
+    // <div class="example-1">
+
+    el1.toggleAttr('attr-5', 'one');
+    // <div class="example-1" attr-5="one">
+    // <div class="example-1">
+
+    el1.toggleAttr('attr-6', 'one', 'two');
+    // <div class="example-1" attr-5="one">
+    // <div class="example-1" attr-5="two">
+
+    el1.addClass('one').addClass('two').removeClass('three').toggleClass('f', 's');
+    // example-1 one two f
+    // example-1 one two s
+
+    var child = el1.qs('.example-1_item');
+
+  });
+
+  var elements = qsa('.example-2');
+
+  elements.each(function (element, i) {
+    var childs = element.qsa('.example-2_item');
+  });
+
+  elements.ael('click', function (event, element, i) {
+    elements.addClass('multiple');
+    elements.removeClass('multiple-2');
+    elements.attr('attr-1', 'value');
+  });
 
 </script>
 

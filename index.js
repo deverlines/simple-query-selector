@@ -1,99 +1,3 @@
-const events = {
-  'abort': 'abort',
-  'animationcancel': 'animationcancel',
-  'animationend': 'animationend',
-  'animationiteration': 'animationiteration',
-  'animationstart': 'animationstart',
-  'auxclick': 'auxclick',
-  'blur': 'blur',
-  'cancel': 'cancel',
-  'canplay': 'canplay',
-  'canplaythrough': 'canplaythrough',
-  'change': 'change',
-  'click': 'click',
-  'close': 'close',
-  'contextmenu': 'contextmenu',
-  'cuechange': 'cuechange',
-  'dblclick': 'dblclick',
-  'drag': 'drag',
-  'dragend': 'dragend',
-  'dragenter': 'dragenter',
-  'dragexit': 'dragexit',
-  'dragleave': 'dragleave',
-  'dragover': 'dragover',
-  'dragstart': 'dragstart',
-  'drop': 'drop',
-  'durationchange': 'durationchange',
-  'emptied': 'emptied',
-  'ended': 'ended',
-  'error': 'error',
-  'focus': 'focus',
-  'focusin': 'focusin',
-  'focusout': 'focusout',
-  'gotpointercapture': 'gotpointercapture',
-  'input': 'input',
-  'invalid': 'invalid',
-  'keydown': 'keydown',
-  'keypress': 'keypress',
-  'keyup': 'keyup',
-  'load': 'load',
-  'loadeddata': 'loadeddata',
-  'loadedmetadata': 'loadedmetadata',
-  'loadstart': 'loadstart',
-  'lostpointercapture': 'lostpointercapture',
-  'mousedown': 'mousedown',
-  'mouseenter': 'mouseenter',
-  'mouseleave': 'mouseleave',
-  'mousemove': 'mousemove',
-  'mouseout': 'mouseout',
-  'mouseover': 'mouseover',
-  'mouseup': 'mouseup',
-  'pause': 'pause',
-  'play': 'play',
-  'playing': 'playing',
-  'pointercancel': 'pointercancel',
-  'pointerdown': 'pointerdown',
-  'pointerenter': 'pointerenter',
-  'pointerleave': 'pointerleave',
-  'pointermove': 'pointermove',
-  'pointerout': 'pointerout',
-  'pointerover': 'pointerover',
-  'pointerup': 'pointerup',
-  'progress': 'progress',
-  'ratechange': 'ratechange',
-  'reset': 'reset',
-  'resize': 'resize',
-  'scroll': 'scroll',
-  'securitypolicyviolation': 'securitypolicyviolation',
-  'seeked': 'seeked',
-  'seeking': 'seeking',
-  'select': 'select',
-  'selectionchange': 'selectionchange',
-  'selectstart': 'selectstart',
-  'stalled': 'stalled',
-  'submit': 'submit',
-  'suspend': 'suspend',
-  'timeupdate': 'timeupdate',
-  'toggle': 'toggle',
-  'touchcancel': 'touchcancel',
-  'touchend': 'touchend',
-  'touchmove': 'touchmove',
-  'touchstart': 'touchstart',
-  'transitioncancel': 'transitioncancel',
-  'transitionend': 'transitionend',
-  'transitionrun': 'transitionrun',
-  'transitionstart': 'transitionstart',
-  'volumechange': 'volumechange',
-  'waiting': 'waiting',
-  'wheel': 'wheel',
-};
-
-/**
- * typedef {{string: events}} elementEvent
- * @typedef {string} elementEvent
- * @type {events.<string, *>}
- */
-
 /**
  * @callback aelCallback
  * @param {Event} event
@@ -217,7 +121,7 @@ Element.prototype.qsa = function (selector) {
 
 /**
  *
- * @param {elementEvent} event
+ * @param {string} event
  * @param {elementAelCallback} callback
  * @returns HTMLElementTagNameMap[*]
  */
@@ -236,7 +140,7 @@ Element.prototype.ael = function (event, callback) {
 
 /**
  *
- * @param  event
+ * @param {string} event
  * @param {nodeListAelCallback} callback
  * @returns NodeList
  */
@@ -259,15 +163,38 @@ NodeList.prototype.ael = function (event, callback) {
  */
 Element.prototype.attr = function (name, value = undefined) {
 
-  if (value === undefined)
-    return this.getAttribute(name) === undefined ? null : this.getAttribute(name);
+  if (value === undefined) {
+    let value = this.getAttribute(name);
+    return value === undefined ? null : value;
+  }
 
-  if (value === null) {
+  if (value == null) {
     this.removeAttribute(name);
     return this;
   }
 
   this.setAttribute(name, value);
+  return this;
+
+};
+
+/**
+ *
+ * @param {string} name
+ * @param {string|null} value
+ * @returns {NodeList|Array}
+ */
+NodeList.prototype.attr = function (name, value = undefined) {
+
+  let result = [];
+
+  this.each((element, i) => {
+    result.push(element.attr(name, value));
+  });
+
+  if (value === undefined)
+    return result;
+
   return this;
 
 };
@@ -297,7 +224,7 @@ Element.prototype.toggleAttr = function (name, value = null, value2 = undefined)
       return this;
     }
 
-    if (value === null) {
+    if (value == null) {
       this.attr(name, name);
       return this;
     }
@@ -335,11 +262,41 @@ Element.prototype.addClass = function (value) {
 /**
  *
  * @param {string} value
+ * @returns NodeList
+ */
+NodeList.prototype.addClass = function (value) {
+
+  this.each((element, i) => {
+    element.addClass(value);
+  });
+
+  return this;
+
+};
+
+/**
+ *
+ * @param {string} value
  * @returns HTMLElementTagNameMap[*]
  */
 Element.prototype.removeClass = function (value) {
   this.classList.remove(value);
   return this;
+};
+
+/**
+ *
+ * @param {string} value
+ * @returns NodeList
+ */
+NodeList.prototype.removeClass = function (value) {
+
+  this.each((element, i) => {
+    element.removeClass(value);
+  });
+
+  return this;
+
 };
 
 /**
@@ -362,24 +319,24 @@ Element.prototype.toggleClass = function (value, value2 = undefined) {
 
   if (value2 === undefined) {
 
-    if (this.classList.contains(value)) {
-      this.classList.remove(value);
+    if (this.hasClass(value)) {
+      this.removeClass(value);
       return this;
     }
 
-    this.classList.add(value);
+    this.addClass(value);
     return this;
 
   }
 
   if (this.classList.contains(value)) {
-    this.classList.remove(value);
-    this.classList.add(value2);
+    this.removeClass(value);
+    this.addClass(value2);
     return this;
   }
 
-  this.classList.remove(value2);
-  this.classList.add(value);
+  this.removeClass(value2);
+  this.addClass(value);
   return this;
 
 };
