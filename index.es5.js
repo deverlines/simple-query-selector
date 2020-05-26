@@ -187,7 +187,7 @@ Element.prototype.attr = function (name) {
 NodeList.prototype.attr = function (name) {
   var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
   var result = [];
-  this.each(function (element, i) {
+  this.each(function (element) {
     result.push(element.attr(name, value));
   });
   if (value === undefined) return result;
@@ -263,7 +263,7 @@ Element.prototype.addClass = function (value) {
 
 
 NodeList.prototype.addClass = function (value) {
-  this.each(function (element, i) {
+  this.each(function (element) {
     element.addClass(value);
   });
   return this;
@@ -287,7 +287,7 @@ Element.prototype.removeClass = function (value) {
 
 
 NodeList.prototype.removeClass = function (value) {
-  this.each(function (element, i) {
+  this.each(function (element) {
     element.removeClass(value);
   });
   return this;

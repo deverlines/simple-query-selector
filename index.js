@@ -188,7 +188,7 @@ NodeList.prototype.attr = function (name, value = undefined) {
 
   let result = [];
 
-  this.each((element, i) => {
+  this.each((element) => {
     result.push(element.attr(name, value));
   });
 
@@ -266,7 +266,7 @@ Element.prototype.addClass = function (value) {
  */
 NodeList.prototype.addClass = function (value) {
 
-  this.each((element, i) => {
+  this.each((element) => {
     element.addClass(value);
   });
 
@@ -291,7 +291,7 @@ Element.prototype.removeClass = function (value) {
  */
 NodeList.prototype.removeClass = function (value) {
 
-  this.each((element, i) => {
+  this.each((element) => {
     element.removeClass(value);
   });
 
